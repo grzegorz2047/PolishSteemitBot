@@ -13,6 +13,7 @@ function main() {
 
 	if (!fs.existsSync(path)) {		
 		createFile(path);
+		//We can add file, where we'll save last checkedId
 	}else {
 		runBot(path);
 	}
@@ -27,10 +28,9 @@ function createFile(path) {
 	  stream.write("}\n");
 	  stream.end();
 	});
-	console.log("Stworzylem plik jsonowy");
-	console.log("Uruchom ponownie program z wypelnionymi danymi logowania w pliku credentials.json!");
-}
-	
+	console.log("JSON file created");
+	console.log("Run bot again with credentials added in file called credentials.json!");
+}	
  
 function runBot(path) {
 		var contents = fs.readFileSync(path);
@@ -60,7 +60,8 @@ function getNewestPost(login, password, message) {
 		  console.log("Liczba postow to " + postCount);
 		  //console.log("Liczba komentarzy to " + commentCount);
 		  if(isAlreadyChecked(postId,currentCheckedId)) {
-			  console.log("Tego juz sprawdzilem");
+			  console.log(" ");
+			  console.log("I already checked this author!");
 			  return;
 		  }
 		
@@ -80,7 +81,7 @@ function getNewestPost(login, password, message) {
 	 });	
 }
 function isAlreadyChecked(first, second) {
-	console.log("Porownanie " + first + " z " + second); 
+	console.log("Compare " + first + " with " + second); 
 	return first == second;
 }
  
