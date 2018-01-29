@@ -7,7 +7,11 @@
     "example": "examples",
     "test": "test"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.16.2",
+    "iconv": "^2.3.0",
+    "steem": "^0.7.1"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "mocha"
