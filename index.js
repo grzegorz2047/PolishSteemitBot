@@ -22,7 +22,7 @@ function createFile(path) {
 	stream.once('open', function(fd) {
 	  stream.write("{\n");
 	  stream.write("\"login\" : \"login\",\n");
-	  stream.write("\"password\" : \"password\"\n");
+	  stream.write("\"password\" : \"password\", \n");
 	  stream.write("\"welcomeMessage\" : \"message\"\n");
 	  stream.write("}\n");
 	  stream.end();
