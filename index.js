@@ -23,6 +23,7 @@ function createFile(path) {
 	  stream.write("{\n");
 	  stream.write("\"login\" : \"login\",\n");
 	  stream.write("\"password\" : \"password\"\n");
+	  stream.write("\"welcomeMessage\" : \"message\"\n");
 	  stream.write("}\n");
 	  stream.end();
 	});
@@ -37,12 +38,12 @@ function runBot(path) {
 		//console.log("Username:", jsonContent.login);
 		//console.log("Password:", jsonContent.password);
 		var myInt = setInterval(function () {
-			getNewestPost(jsonContent.login, jsonContent.password);
+			getNewestPost(jsonContent.login, jsonContent.password, jsonContent.welcomeMessage);
 			console.log(" ============= ");
 		}, 1000);
 }
 	
-function getNewestPost(login, password) {
+function getNewestPost(login, password, message) {
 	steem.api.getDiscussionsByCreated({"tag":"polish","limit":"10"}, function(err, result) {
 		var authorName = result[0]['author'];
 		var postId = result[0]['id'];
@@ -66,7 +67,7 @@ function getNewestPost(login, password) {
 		  if(commentCount == 1) {
 			currentCheckedId = postId;
 			  var commentForTitle = "";//It's not article
-			  var bodyOfComment = "Witaj nowy użytkowniku w tagu #polish!";
+			  var bodyOfComment = message;
 			  var wif = steem.auth.toWif(login, password, 'posting');
 			  steem.broadcast.comment(wif, authorName, parentPermlink, botName, permlink, title, bodyOfComment, jsonMetadata, function(err, result) {
 				console.log(err, result);
