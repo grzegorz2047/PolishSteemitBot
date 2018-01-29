@@ -24,7 +24,8 @@ function createFile(path) {
 	  stream.write("{\n");
 	  stream.write("\"login\" : \"login\",\n");
 	  stream.write("\"password\" : \"password\", \n");
-	  stream.write("\"welcomeMessage\" : \"message\"\n");
+	  stream.write("\"tagToObserve\" : \"polish\", \n");
+	  stream.write("\"welcomeMessage\" : \"Welcome message!\"\n");
 	  stream.write("}\n");
 	  stream.end();
 	});
@@ -38,13 +39,13 @@ function runBot(path) {
 		//console.log("Username:", jsonContent.login);
 		//console.log("Password:", jsonContent.password);
 		var myInt = setInterval(function () {
-			getNewestPost(jsonContent.login, jsonContent.password, jsonContent.welcomeMessage);
+			getNewestPost(jsonContent.login, jsonContent.password, jsonContent.welcomeMessage, jsonContent.tagToObserve);
 			console.log(" ============= ");
 		}, 1000);
 }
 	
-function getNewestPost(login, password, message) {
-	steem.api.getDiscussionsByCreated({"tag":"polish","limit":"10"}, function(err, result) {
+function getNewestPost(login, password, message, tagToObserve) {
+	steem.api.getDiscussionsByCreated({"tag":tagToObserve,"limit":"10"}, function(err, result) {
 		var authorName = result[0]['author'];
 		var postId = result[0]['id'];
 		var authorNames = [authorName];
